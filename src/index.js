@@ -7,6 +7,7 @@ import {Provider as StoreProvider} from 'react-redux';
 // Redux Store import
 import {store, persistor} from './store';
 import Navigation from './navigation';
+import {DarkModeProvider, useDarkModeContext} from 'react-native-dark-mode';
 
 const App = () => {
   React.useEffect(() => {
@@ -16,11 +17,13 @@ const App = () => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, []);
   return (
-    <StoreProvider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Navigation />
-      </PersistGate>
-    </StoreProvider>
+    <DarkModeProvider mode={useDarkModeContext()}>
+      <StoreProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Navigation />
+        </PersistGate>
+      </StoreProvider>
+    </DarkModeProvider>
   );
 };
 

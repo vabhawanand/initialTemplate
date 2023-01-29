@@ -1,8 +1,10 @@
 // Imports: Dependencies
 import AsyncStorage from '@react-native-community/async-storage';
 import {createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
 import {persistStore, persistReducer} from 'redux-persist';
+import createSagaMiddleware from 'redux-saga';
+import {createLogger, logger} from 'redux-logger';
+import saga from './saga';
 // Imports: Redux
 import rootReducer from './reducers';
 // Middleware: Redux Persist Config
@@ -16,16 +18,16 @@ const persistConfig = {
   // Blacklist (Don't Save Specific Reducers)
   blacklist: [],
 };
+const sagaMiddleware = createSagaMiddleware();
 // Middleware: Redux Persist Persisted Reducer
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 // Redux: Store
 const store = createStore(
   persistedReducer,
-  applyMiddleware(
-    // createLogger(),
-    thunk,
-  ),
+  applyMiddleware(sagaMiddleware, createLogger()),
 );
+sagaMiddleware.run(saga);
 // Middleware: Redux Persist Persister
 let persistor = persistStore(store);
 // Exports

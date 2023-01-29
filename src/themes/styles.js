@@ -1,10 +1,16 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import {
+  DynamicStyleSheet,
+  DynamicValue,
+  useDynamicStyleSheet,
+} from 'react-native-dark-mode';
 import colors from './colors';
 const initialLayout = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').width,
 };
-const CommonStyles = StyleSheet.create({
+
+const CommonStyles = new DynamicStyleSheet({
   keyboardAwareScroll: {
     display: 'flex',
     flex: 1,
@@ -14,12 +20,13 @@ const CommonStyles = StyleSheet.create({
   },
   safeAreaView: {
     flex: 1,
-    backgroundColor: colors.colorFFF,
+    backgroundColor: new DynamicValue(colors.pBgDark, colors.pBgLight),
   },
   pageContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: new DynamicValue('#000', '#fff'),
   },
   btnLG: {
     width: 350,
@@ -36,7 +43,7 @@ const CommonStyles = StyleSheet.create({
     borderRadius: 27,
     alignSelf: 'center',
     borderWidth: 1,
-    borderColor: colors.color23,
+    borderColor: new DynamicValue('#fff', colors.color23),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -46,7 +53,7 @@ const CommonStyles = StyleSheet.create({
     fontSize: 16,
   },
   btnTxtOl: {
-    color: colors.color23,
+    color: new DynamicValue('#fff', colors.color23),
     fontWeight: '600',
     fontSize: 16,
   },

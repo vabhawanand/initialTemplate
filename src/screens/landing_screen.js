@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,12 +6,17 @@ import {
   SafeAreaView,
   Pressable,
   Image,
+  useColorScheme,
 } from 'react-native';
+import {useDarkModeContext, useDynamicStyleSheet} from 'react-native-dark-mode';
 import CommonStyles from '../themes/styles';
 const LandingScreen = ({...props}) => {
+  const CStyles = useDynamicStyleSheet(CommonStyles);
+  console.log({isDark: useDarkModeContext()});
+  // console.log({CommonStyles});
   return (
-    <SafeAreaView style={CommonStyles.safeAreaView}>
-      <View style={CommonStyles.pageContainer}>
+    <SafeAreaView style={CStyles.safeAreaView}>
+      <View style={CStyles.pageContainer}>
         <View style={styles.logoCont}>
           <Image
             source={{uri: 'https://picsum.photos/300'}}
@@ -22,21 +27,21 @@ const LandingScreen = ({...props}) => {
         </View>
         <View style={styles.buttonCont}>
           <Pressable
-            style={CommonStyles.btnLG}
+            style={CStyles.btnLG}
             onPress={() => props.navigation.push('register')}>
-            <Text style={CommonStyles.btnTxt}>Register</Text>
+            <Text style={CStyles.btnTxt}>Register</Text>
           </Pressable>
           <View style={styles.margin} />
           <Pressable
-            style={CommonStyles.btnLGOL}
+            style={CStyles.btnLGOL}
             onPress={() => props.navigation.push('login')}>
-            <Text style={CommonStyles.btnTxtOl}>Login</Text>
+            <Text style={CStyles.btnTxtOl}>Login</Text>
           </Pressable>
         </View>
       </View>
     </SafeAreaView>
   );
-};
+};;;;;
 const styles = StyleSheet.create({
   logoCont: {
     flex: 1,

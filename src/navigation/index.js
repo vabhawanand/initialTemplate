@@ -15,55 +15,65 @@ import linking from '../deeplink';
 
 const StackScreen = createStackNavigator();
 
-const Navigation = () => {
+const AppStack = () => {
   const auth = useSelector(state => state.authReducer.user);
+  return (
+    <>
+      {auth === null || auth === undefined ? (
+        <StackScreen.Navigator initialRouteName={'landing'}>
+          <StackScreen.Screen
+            name="landing"
+            component={LandingScreen}
+            options={{headerShown: false}}
+          />
+          <StackScreen.Screen
+            name="login"
+            component={LoginScreen}
+            options={{headerShown: false}}
+          />
+          <StackScreen.Screen
+            name="forgot"
+            component={ForgotPasswordScreen}
+            options={{headerShown: false}}
+          />
+          <StackScreen.Screen
+            name="reset"
+            component={ResetPasswordScreen}
+            options={{headerShown: false}}
+            initialParams={{}}
+          />
+          <StackScreen.Screen
+            name="verifyemail"
+            component={VerifyEmailScreen}
+            options={{headerShown: false}}
+            initialParams={{}}
+          />
+          <StackScreen.Screen
+            name="register"
+            component={RegisterScreen}
+            options={{headerShown: false}}
+          />
+        </StackScreen.Navigator>
+      ) : (
+        <StackScreen.Navigator initialRouteName={'landing'}>
+          <StackScreen.Screen
+            name="home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
+        </StackScreen.Navigator>
+      )}
+    </>
+  );
+};
+const Navigation = () => {
   // const dispatch = useDispatch();
-  // React.useEffect(() => {
-  //   // auth !== null && dispatch(appAction.initializeForToday({user_id: auth.id}));
-  //   // SplashScreen.hide();
-  // }, [auth]);
+  React.useEffect(() => {
+    /* Perform inital actions if required to get meta data for the app  */
+  }, []);
   return (
     <NavigationContainer linking={linking}>
-      <StackScreen.Navigator
-        initialRouteName={auth === null ? 'landing' : 'home'}>
-        <StackScreen.Screen
-          name="landing"
-          component={LandingScreen}
-          options={{headerShown: false}}
-        />
-        <StackScreen.Screen
-          name="login"
-          component={LoginScreen}
-          options={{headerShown: false}}
-        />
-        <StackScreen.Screen
-          name="forgot"
-          component={ForgotPasswordScreen}
-          options={{headerShown: false}}
-        />
-        <StackScreen.Screen
-          name="reset"
-          component={ResetPasswordScreen}
-          options={{headerShown: false}}
-          initialParams={{}}
-        />
-        <StackScreen.Screen
-          name="verifyemail"
-          component={VerifyEmailScreen}
-          options={{headerShown: false}}
-          initialParams={{}}
-        />
-        <StackScreen.Screen
-          name="register"
-          component={RegisterScreen}
-          options={{headerShown: false}}
-        />
-        <StackScreen.Screen
-          name="home"
-          component={HomeScreen}
-          options={{headerShown: false}}
-        />
-      </StackScreen.Navigator>
+      <AppStack />
     </NavigationContainer>
   );
 };

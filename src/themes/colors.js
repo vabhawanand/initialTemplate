@@ -1,4 +1,8 @@
 export default class colors {
+  static pBgLight = '#fff';
+  static pBgDark = '#000';
+  static textLight = '#000';
+  static textDark = '#fff';
   static color000 = '#000000';
   static colorAF = '#AFAFAF';
   static color84 = '#848484';
